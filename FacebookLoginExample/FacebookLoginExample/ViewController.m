@@ -32,8 +32,32 @@
 didCompleteWithResult:	(FBSDKLoginManagerLoginResult *)result
               error:	(NSError *)error
 {
-    NSLog(@"result=%@",result);
-    NSLog(@"error=%@",error);
+    if (result.isCancelled==YES) {
+        NSLog(@"User login canceled.");
+    }else{
+        NSLog(@"grantedPermissions=%@",result.grantedPermissions);
+        FBSDKAccessToken *token=result.token;
+        NSLog(@"userID=%@",token.userID);
+        NSLog(@"tokenString=%@",token.tokenString);
+        
+        if ([result.grantedPermissions containsObject:@"email"]) {
+            if ([FBSDKAccessToken currentAccessToken]) {
+                NSDictionary *param = @{@"fields" : @"email"};
+                [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:param] startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+                    if (!error && result!=nil) {
+                        if([result isKindOfClass:[NSDictionary class]])
+                        {
+                            NSLog(@"email=%@",result[@"email"]);
+                        }
+                    }
+                }];
+            }
+        } else {
+            NSLog(@"Not granted");
+        }
+    }
+    if(error != nil)
+        NSLog(@"error=%@",error);
 }
 - (void)loginButtonDidLogOut:(FBSDKLoginButton *)loginButton
 {
