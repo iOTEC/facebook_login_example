@@ -12,6 +12,7 @@
 
 @interface ViewController ()<FBSDKLoginButtonDelegate>
 @property (weak, nonatomic) IBOutlet FBSDKLoginButton *fbLoginButton;
+@property (strong, nonatomic) IBOutlet UIImageView *imageView;
 
 @end
 
@@ -48,6 +49,20 @@ didCompleteWithResult:	(FBSDKLoginManagerLoginResult *)result
                         if([result isKindOfClass:[NSDictionary class]])
                         {
                             NSLog(@"email=%@",result[@"email"]);
+                            
+                            if ([FBSDKAccessToken currentAccessToken]) {
+                                [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:@{ @"fields" : @"id,name,picture.width(100).height(100)"}]startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
+                                    if (!error) {
+                                        NSString *nameOfLoginUser = [result valueForKey:@"name"];
+                                        NSLog(@"name=%@",nameOfLoginUser);
+                                        
+                                        NSString *imageStringOfLoginUser = [[[result valueForKey:@"picture"] valueForKey:@"data"] valueForKey:@"url"];
+                                        
+                                        NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageStringOfLoginUser]];
+                                        self.imageView.image = [UIImage imageWithData:imageData];
+                                    }
+                                }];
+                            }
                         }
                     }
                 }];

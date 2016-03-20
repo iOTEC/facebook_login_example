@@ -25,15 +25,25 @@
                                 </constraints>
                                 <state key="normal" title="Facebook Login"/>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="P53-hJ-vhM">
+                                <rect key="frame" x="180" y="115" width="240" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="TQm-EA-VsL"/>
+                                    <constraint firstAttribute="height" constant="128" id="rmM-zd-OKX"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="usF-yZ-3j9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1y8-KR-yFF"/>
                             <constraint firstItem="usF-yZ-3j9" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="OTG-Js-bZ0"/>
+                            <constraint firstItem="P53-hJ-vhM" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ror-sN-YYI"/>
+                            <constraint firstItem="usF-yZ-3j9" firstAttribute="top" secondItem="P53-hJ-vhM" secondAttribute="bottom" constant="42" id="sKd-Hf-nUx"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="fbLoginButton" destination="usF-yZ-3j9" id="e2n-ab-Sou"/>
+                        <outlet property="imageView" destination="P53-hJ-vhM" id="iug-D1-S57"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
