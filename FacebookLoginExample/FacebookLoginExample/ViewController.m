@@ -13,6 +13,8 @@
 @interface ViewController ()<FBSDKLoginButtonDelegate>
 @property (weak, nonatomic) IBOutlet FBSDKLoginButton *fbLoginButton;
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *emailLabel;
 
 @end
 
@@ -23,6 +25,8 @@
     // Do any additional setup after loading the view, typically from a nib.
     self.fbLoginButton.readPermissions = @[@"public_profile", @"email", @"user_friends"];
     self.fbLoginButton.delegate=self;
+    [_nameLabel setText:@""];
+    [_emailLabel setText:@""];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -43,26 +47,20 @@ didCompleteWithResult:	(FBSDKLoginManagerLoginResult *)result
         
         if ([result.grantedPermissions containsObject:@"email"]) {
             if ([FBSDKAccessToken currentAccessToken]) {
-                NSDictionary *param = @{@"fields" : @"email"};
+                NSDictionary *param = @{@"fields" : @"email,id,name,picture.width(100).height(100)"};
                 [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:param] startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
                     if (!error && result!=nil) {
                         if([result isKindOfClass:[NSDictionary class]])
                         {
                             NSLog(@"email=%@",result[@"email"]);
+                            [_emailLabel setText:result[@"email"]];
+                            NSLog(@"name=%@",result[@"name"]);
+                            [_nameLabel setText:result[@"name"]];
+
+                            NSString *imageStringOfLoginUser = [[[result valueForKey:@"picture"] valueForKey:@"data"] valueForKey:@"url"];
                             
-                            if ([FBSDKAccessToken currentAccessToken]) {
-                                [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:@{ @"fields" : @"id,name,picture.width(100).height(100)"}]startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-                                    if (!error) {
-                                        NSString *nameOfLoginUser = [result valueForKey:@"name"];
-                                        NSLog(@"name=%@",nameOfLoginUser);
-                                        
-                                        NSString *imageStringOfLoginUser = [[[result valueForKey:@"picture"] valueForKey:@"data"] valueForKey:@"url"];
-                                        
-                                        NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageStringOfLoginUser]];
-                                        self.imageView.image = [UIImage imageWithData:imageData];
-                                    }
-                                }];
-                            }
+                            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageStringOfLoginUser]];
+                            self.imageView.image = [UIImage imageWithData:imageData];
                         }
                     }
                 }];

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1605" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -17,6 +17,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="P53-hJ-vhM">
+                                <rect key="frame" x="180" y="115" width="240" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="TQm-EA-VsL"/>
+                                    <constraint firstAttribute="height" constant="128" id="rmM-zd-OKX"/>
+                                </constraints>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="usF-yZ-3j9" customClass="FBSDKLoginButton">
                                 <rect key="frame" x="230" y="285" width="140" height="30"/>
                                 <constraints>
@@ -25,25 +32,36 @@
                                 </constraints>
                                 <state key="normal" title="Facebook Login"/>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="P53-hJ-vhM">
-                                <rect key="frame" x="180" y="115" width="240" height="128"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="240" id="TQm-EA-VsL"/>
-                                    <constraint firstAttribute="height" constant="128" id="rmM-zd-OKX"/>
-                                </constraints>
-                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IKO-rV-gDU">
+                                <rect key="frame" x="275" y="323" width="50" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="email:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="olB-W6-Abx">
+                                <rect key="frame" x="277" y="352" width="46" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="usF-yZ-3j9" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1y8-KR-yFF"/>
+                            <constraint firstItem="olB-W6-Abx" firstAttribute="top" secondItem="IKO-rV-gDU" secondAttribute="bottom" constant="8" id="4ju-la-HWj"/>
+                            <constraint firstItem="IKO-rV-gDU" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="4wr-pB-QEn"/>
                             <constraint firstItem="usF-yZ-3j9" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="OTG-Js-bZ0"/>
+                            <constraint firstItem="IKO-rV-gDU" firstAttribute="top" secondItem="usF-yZ-3j9" secondAttribute="bottom" constant="8" id="QVP-TQ-bDg"/>
+                            <constraint firstItem="olB-W6-Abx" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="mzD-Xd-qyn"/>
                             <constraint firstItem="P53-hJ-vhM" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ror-sN-YYI"/>
                             <constraint firstItem="usF-yZ-3j9" firstAttribute="top" secondItem="P53-hJ-vhM" secondAttribute="bottom" constant="42" id="sKd-Hf-nUx"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="emailLabel" destination="olB-W6-Abx" id="mHl-fb-sqm"/>
                         <outlet property="fbLoginButton" destination="usF-yZ-3j9" id="e2n-ab-Sou"/>
                         <outlet property="imageView" destination="P53-hJ-vhM" id="iug-D1-S57"/>
+                        <outlet property="nameLabel" destination="IKO-rV-gDU" id="abe-jH-a7i"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
